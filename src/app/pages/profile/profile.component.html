@@ -1,0 +1,66 @@
+<mat-toolbar>
+  User Profile
+</mat-toolbar>
+
+<mat-tab-group #tabs>
+  <mat-tab label="Profile">
+  </mat-tab>
+
+  <mat-tab label="Published">
+  </mat-tab>
+
+  <mat-tab label="Favorites">
+  </mat-tab>
+
+  <mat-tab label="Followed">
+  </mat-tab>
+
+  <mat-tab label="Fans">
+  </mat-tab>
+</mat-tab-group>
+
+<ng-container *ngIf="tabs.selectedIndex===0" #info_page>
+  username: {{info.username}}
+  <br>
+  email: {{info.email}}
+  <br>
+  phone {{info.phone}}
+</ng-container>
+
+<ng-container *ngIf="tabs.selectedIndex===1" #published_page>
+  <mat-card mat-ripple *ngFor="let res of published?.content" (click)="clickResource(res.id)">
+    <mat-card-title>
+      {{res.title}}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{res.updated}}
+    </mat-card-subtitle>
+
+    <mat-card-content>
+      {{res.summary}}
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-container *ngIf="tabs.selectedIndex===2" #favorites_page>
+  <mat-card *ngFor="let res of favorites?.content">
+    <mat-card-title>
+      {{res.title}}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{res.updated}}
+    </mat-card-subtitle>
+
+    <mat-card-content>
+      {{res.summary}}
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-container *ngIf="tabs.selectedIndex===3" #followed_page>
+  Followed
+</ng-container>
+
+<ng-container *ngIf="tabs.selectedIndex===4" #fans_page>
+  Fans
+</ng-container>

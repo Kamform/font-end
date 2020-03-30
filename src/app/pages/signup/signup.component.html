@@ -1,0 +1,35 @@
+<h2>Sign up User</h2>
+
+<form [formGroup]="signupInfo" (ngSubmit)="signup()">
+
+  <label>
+    username:
+    <input type="text" formControlName="username">
+  </label>
+
+  <br>
+
+  <label>
+    password:
+    <input type="password" formControlName="password">
+  </label>
+
+  <br>
+
+  <label>
+    email:
+    <input type="text" formControlName="email">
+  </label>
+
+  <br>
+
+  <label>
+    phone:
+    <input type="text" formControlName="phone">
+  </label>
+
+  <br>
+
+  <button type="submit">Sign up</button>
+
+</form>

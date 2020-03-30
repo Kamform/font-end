@@ -1,0 +1,50 @@
+<mat-sidenav-container>
+
+  <mat-sidenav opened mode="side" [style.width.px]="200">
+    <mat-nav-list>
+
+      <a mat-list-item routerLink="">
+        <mat-icon mat-list-icon>home</mat-icon>
+        <span mat-line>recent</span>
+      </a>
+      <a mat-list-item routerLink="category">
+        <mat-icon mat-list-icon>widgets</mat-icon>
+        <span mat-line>category</span>
+      </a>
+
+      <a *ngIf="logState.islog" mat-list-item routerLink="favorites">
+        <mat-icon mat-list-icon>favorite</mat-icon>
+        <span mat-line>favorites</span>
+      </a>
+
+      <a *ngIf="logState.islog" mat-list-item routerLink="publish">
+        <mat-icon mat-list-icon>folder</mat-icon>
+        <span mat-line>published</span>
+      </a>
+    </mat-nav-list>
+
+    <mat-divider></mat-divider>
+
+    <mat-nav-list>
+      <ng-container *ngIf="logState.islog else login">
+        <a mat-list-item routerLink="profile">
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <span mat-line>Profile</span>
+        </a>
+        <a mat-list-item routerLink="edit">
+          <mat-icon mat-list-icon>publish</mat-icon>
+          <span mat-line>Publish</span>
+        </a>
+      </ng-container>
+
+      <ng-template #login>
+        <a mat-list-item routerLink="login">log in</a>
+        <a mat-list-item routerLink="sign-up">sign up</a>
+      </ng-template>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

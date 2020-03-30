@@ -1,0 +1,46 @@
+<h2>User Info</h2>
+
+<button (click)="edit = !edit">
+  {{edit ? 'Cancel' : 'Edit'}}
+</button>
+
+<form [formGroup]="recorder" (ngSubmit)="update()">
+  <input type="hidden" formControlName="id">
+  <input type="hidden" formControlName="isEnable">
+  <input type="hidden" formControlName="isAdmin">
+  <input type="hidden" formControlName="isLock">
+
+  <ng-container *ngIf="edit">
+    <label>
+      username:
+      <input type="text" formControlName="username">
+    </label><br>
+    <label>
+      password:
+      <input type="password" formControlName="password">
+    </label><br>
+    <label>
+      email:
+      <input type="text" formControlName="email">
+    </label><br>
+    <label>
+      phone:
+      <input type="text" formControlName="phone">
+    </label><br>
+  </ng-container>
+
+  <ng-container *ngIf="!edit">
+    <span>username: {{user?.username}}</span><br>
+    <span>password: ******</span><br>
+    <span>email: {{user?.email}}</span><br>
+    <span>phone: {{user?.phone}}</span><br>
+    <span>join since {{user?.created | date}}</span><br>
+  </ng-container>
+
+  <a href="#">followed</a>
+  <a href="#">fans</a>
+
+  <a href="#">files</a>
+
+  <button type="submit" [disabled]="recorder.pristine">save</button>
+</form>

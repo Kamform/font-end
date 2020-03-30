@@ -1,0 +1,11 @@
+<h2>Classified Resources</h2>
+
+<section class="tabs">
+  <button *ngFor="let cate of categories?.content" (click)="switch(cate.id)">{{cate.name}}</button>
+</section>
+
+<ul>
+  <li *ngFor="let resource of resources?.content">
+    <app-resource-card [resource]="resource"></app-resource-card>
+  </li>
+</ul>

@@ -1,0 +1,41 @@
+<mat-toolbar>
+  User Login
+</mat-toolbar>
+
+<mat-card>
+  <form [formGroup]="logInfo" (ngSubmit)="login()">
+
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <mat-error *ngIf="logInfo.errors?.failed">wrong username or password</mat-error>
+
+      <br>
+
+      <mat-form-field>
+        <mat-label>username</mat-label>
+        <input matInput [formControl]="username" required>
+        <mat-error *ngIf="username.errors?.required">username is required</mat-error>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field>
+        <mat-label>password</mat-label>
+        <input matInput type="password" [formControl]="password" required>
+        <mat-error *ngIf="password.errors?.required">password is required</mat-error>
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button type="submit" color="primary">login</button>
+      <button mat-raised-button (click)="toSignUp()">sign up</button>
+    </mat-card-actions>
+
+    <mat-card-footer>
+    </mat-card-footer>
+  </form>
+</mat-card>
