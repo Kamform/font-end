@@ -5,28 +5,28 @@
 
       <a mat-list-item routerLink="">
         <mat-icon mat-list-icon>home</mat-icon>
-        <span mat-line>recent</span>
+        <span mat-line>Home</span>
       </a>
       <a mat-list-item routerLink="category">
         <mat-icon mat-list-icon>widgets</mat-icon>
-        <span mat-line>category</span>
+        <span mat-line>Resources</span>
       </a>
 
-      <a *ngIf="logState.islog" mat-list-item routerLink="favorites">
+      <a *ngIf="isLogin" mat-list-item routerLink="favorites">
         <mat-icon mat-list-icon>favorite</mat-icon>
-        <span mat-line>favorites</span>
+        <span mat-line>Favorites</span>
       </a>
 
-      <a *ngIf="logState.islog" mat-list-item routerLink="publish">
+      <a *ngIf="isLogin" mat-list-item routerLink="publish">
         <mat-icon mat-list-icon>folder</mat-icon>
-        <span mat-line>published</span>
+        <span mat-line>Published</span>
       </a>
     </mat-nav-list>
 
     <mat-divider></mat-divider>
 
     <mat-nav-list>
-      <ng-container *ngIf="logState.islog else login">
+      <ng-container *ngIf="isLogin else login">
         <a mat-list-item routerLink="edit">
           <mat-icon mat-list-icon>publish</mat-icon>
           <span mat-line>Publish</span>
@@ -38,6 +38,9 @@
         <a mat-list-item routerLink="settings">
           <mat-icon mat-list-icon>settings</mat-icon>
           <span mat-line>Settings</span>
+        </a>
+        <a mat-list-item (click)="logout()">
+          <span mat-line>Logout</span>
         </a>
       </ng-container>
 

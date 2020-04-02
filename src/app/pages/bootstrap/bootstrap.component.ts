@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginServer} from '../../services/login-server.service';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-bootstrap',
@@ -7,13 +7,18 @@ import {LoginServer} from '../../services/login-server.service';
   styleUrls: ['./bootstrap.component.css']
 })
 export class BootstrapComponent implements OnInit {
-  logState: LoginServer;
 
-  constructor(logState: LoginServer) {
-    this.logState = logState;
+  public isLogin = false;
+
+  constructor(private auth: AuthenticationService) {
+    this.isLogin = auth.isAuthenticated();
   }
 
   ngOnInit(): void {
   }
 
+  logout() {
+    document.cookie = '';
+    this.isLogin = false;
+  }
 }

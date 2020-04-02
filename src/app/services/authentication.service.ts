@@ -4,15 +4,19 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticateService {
+export class AuthenticationService {
   private url = 'localhost:8080';
-  private token: string;
+  private token = '';
 
   constructor(private http: HttpClient) {
   }
 
-  private getToken(): string {
-    return this.token != null ? this.token : (this.token = document.cookie);
+  isAuthenticated() {
+    return this.getToken() !== '';
+  }
+
+  getToken(): string {
+    return this.token !== '' ? this.token : (this.token = document.cookie);
   }
 
   private options(params?) {
@@ -24,7 +28,7 @@ export class AuthenticateService {
     };
   }
 
-  private async authenticate(username: string, password: string): Promise<string> {
+  async authenticate(username: string, password: string): Promise<string> {
     return this.token = document.cookie = await this.http.post<string>(
       this.url + '/api/authenticate',
       {
