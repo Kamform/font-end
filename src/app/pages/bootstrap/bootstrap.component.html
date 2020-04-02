@@ -27,13 +27,17 @@
 
     <mat-nav-list>
       <ng-container *ngIf="logState.islog else login">
+        <a mat-list-item routerLink="edit">
+          <mat-icon mat-list-icon>publish</mat-icon>
+          <span mat-line>Publish</span>
+        </a>
         <a mat-list-item routerLink="profile">
           <mat-icon mat-list-icon>account_circle</mat-icon>
           <span mat-line>Profile</span>
         </a>
-        <a mat-list-item routerLink="edit">
-          <mat-icon mat-list-icon>publish</mat-icon>
-          <span mat-line>Publish</span>
+        <a mat-list-item routerLink="settings">
+          <mat-icon mat-list-icon>settings</mat-icon>
+          <span mat-line>Settings</span>
         </a>
       </ng-container>
 
