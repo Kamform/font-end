@@ -1,14 +1,20 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private url = 'localhost:8080';
+  private url = 'http://localhost:8080';
   private token = '';
+  private useAuth = false;
+
+  public error;
+  public isLogin = new Subject<boolean>();
 
   constructor(private http: HttpClient) {
+    this.isLogin.next(false);
   }
 
   isAuthenticated() {
@@ -20,22 +26,48 @@ export class AuthenticationService {
   }
 
   private options(params?) {
+    let headers = {};
+    if (this.useAuth) {
+      headers = {Authorization: 'Bearer ' + this.getToken()};
+      this.useAuth = false;
+    }
     return {
       params,
-      headers: {
-        Authorization: 'Bearer ' + this.getToken()
-      }
+      headers
     };
   }
 
-  async authenticate(username: string, password: string): Promise<string> {
-    return this.token = document.cookie = await this.http.post<string>(
+  auth() {
+    this.useAuth = true;
+    return this;
+  }
+
+  logout() {
+    this.token = '';
+    document.cookie = '';
+    this.isLogin.next(this.isAuthenticated());
+  }
+
+  async authenticate(loginInfo: {
+    username: string, password: string
+  }): Promise<boolean> {
+    return this.http.post(
       this.url + '/api/authenticate',
       {
-        username,
-        password
+        username: loginInfo.username,
+        password: loginInfo.password
+      },
+      {
+        responseType: 'text'
       }
-    ).toPromise();
+    ).toPromise().catch(reason => {
+      this.error = reason;
+      return '';
+    }).then(value => {
+      this.token = document.cookie = value;
+      this.isLogin.next(this.isAuthenticated());
+      return this.isAuthenticated();
+    });
   }
 
   async get<T>(

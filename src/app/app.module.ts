@@ -30,6 +30,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRippleModule} from '@angular/material/core';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -47,13 +48,14 @@ import {MatRippleModule} from '@angular/material/core';
     ResourceCardComponent,
     ProfileComponent,
     SettingsComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     MatSnackBarModule,
     RouterModule.forRoot([
-      {path: '', component: RecentComponent},
+      {path: '', component: HomeComponent},
       {path: 'category', component: CategoryComponent},
       {path: 'publish', component: PublishedComponent, canActivate: [AuthenticateGuard]},
       {path: 'favorites', component: FavoritesComponent, canActivate: [AuthenticateGuard]},

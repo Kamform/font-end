@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoginServer} from '../../services/login-server.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   logInfo: FormGroup;
 
   constructor(
-    private service: LoginServer,
+    private auth: AuthenticationService,
     private router: Router,
     private snackBar: MatSnackBar,
     private formBuilder: FormBuilder
@@ -31,15 +32,19 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login() {
+  async login() {
     if (this.logInfo.valid) {
-      this.service.login(this.logInfo.value).then(result => {
-        if (result) {
-          this.snackBar.open('success', null, {
-            duration: 2000
+      this.auth.authenticate(this.logInfo.value).then(value => {
+        if (value) {
+          this.snackBar.open(
+            'login success', null,
+            {duration: 2000}
+          );
+          this.router.navigate(['']).then(result => {
+            console.log(result);
           });
-          this.router.navigate(['']);
         } else {
+          console.log(this.auth.error);
           this.logInfo.setErrors({
             failed: true
           });

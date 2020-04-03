@@ -1,35 +1,50 @@
-<h2>Sign up User</h2>
+<mat-toolbar>
+  User Sign up
+</mat-toolbar>
 
-<form [formGroup]="signupInfo" (ngSubmit)="signup()">
+<section class="content">
+  <mat-card>
 
-  <label>
-    username:
-    <input type="text" formControlName="username">
-  </label>
+    <mat-card-header>
+      <mat-card-title>Sign Up</mat-card-title>
+    </mat-card-header>
 
-  <br>
+    <form [formGroup]="signUpInfo" (ngSubmit)="signUp()">
 
-  <label>
-    password:
-    <input type="password" formControlName="password">
-  </label>
+      <mat-form-field>
+        <mat-label>username</mat-label>
+        <input matInput type="text" formControlName="username" required>
+        <mat-error>username is required</mat-error>
+      </mat-form-field>
 
-  <br>
+      <br>
 
-  <label>
-    email:
-    <input type="text" formControlName="email">
-  </label>
+      <mat-form-field>
+        <mat-label>password</mat-label>
+        <input matInput type="password" formControlName="password" required>
+        <mat-error>password is required</mat-error>
+      </mat-form-field>
 
-  <br>
+      <br>
 
-  <label>
-    phone:
-    <input type="text" formControlName="phone">
-  </label>
+      <mat-form-field>
+        <mat-label>email</mat-label>
+        <input matInput type="email" formControlName="email">
+        <mat-error>wrong email format</mat-error>
+      </mat-form-field>
 
-  <br>
+      <br>
 
-  <button type="submit">Sign up</button>
+      <mat-form-field>
+        <mat-label>phone</mat-label>
+        <input matInput type="number" formControlName="phone">
+        <mat-error>pone is required</mat-error>
+      </mat-form-field>
 
-</form>
+      <br>
+
+      <button mat-raised-button color="primary" type="submit">Sign up</button>
+
+    </form>
+  </mat-card>
+</section>

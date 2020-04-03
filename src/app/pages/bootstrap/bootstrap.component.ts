@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../services/authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-bootstrap',
@@ -8,17 +9,18 @@ import {AuthenticationService} from '../../services/authentication.service';
 })
 export class BootstrapComponent implements OnInit {
 
-  public isLogin = false;
+  public isLogin: boolean;
 
-  constructor(private auth: AuthenticationService) {
-    this.isLogin = auth.isAuthenticated();
+  constructor(
+    private auth: AuthenticationService,
+    private router: Router) {
+
+    auth.isLogin.subscribe(value => {
+      console.log(value);
+      this.isLogin = value;
+    });
   }
 
   ngOnInit(): void {
-  }
-
-  logout() {
-    document.cookie = '';
-    this.isLogin = false;
   }
 }
