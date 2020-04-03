@@ -3,6 +3,7 @@ import {UserService} from '../../services/user.service';
 import {ResourceService} from '../../services/resource.service';
 import {LoginServer} from '../../services/login-server.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,30 +12,29 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class ProfileComponent implements OnInit {
 
-  info;
-  published;
-  favorites;
-  followed;
-  fans;
+  user = {
+    username: '',
+    password: '',
+    email: '',
+    phone: ''
+  };
+  published = [];
+  favorites = [];
+  followed = [];
+  fans = [];
 
   constructor(
-    private logState: LoginServer,
+    private auth: AuthenticationService,
     private userService: UserService,
     private resourceService: ResourceService,
     private snackBar: MatSnackBar
   ) {
   }
 
-  async ngOnInit() {
-    const id = this.logState.account.id;
-    this.info = await this.userService.getInfo(id);
-    this.published = await this.userService.getPublish(id);
-    this.favorites = await this.userService.getFavorites(id);
-    this.followed = await this.userService.getFollowed(id);
-    this.fans = await this.userService.getFans(id);
-  }
-
   clickResource(id: number) {
     this.snackBar.open('clicked', null, {duration: 2000});
+  }
+
+  ngOnInit(): void {
   }
 }

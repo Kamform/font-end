@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {LoginComponent} from './pages/login/login.component';
-import {RecentComponent} from './pages/recent/recent.component';
 import {PublishedComponent} from './pages/published/published.component';
 import {FavoritesComponent} from './pages/favorites/favorites.component';
 import {UserComponent} from './pages/user/user.component';
@@ -25,17 +24,16 @@ import {MatInputModule} from '@angular/material/input';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { SettingsComponent } from './pages/settings/settings.component';
+import {ProfileComponent} from './pages/profile/profile.component';
+import {SettingsComponent} from './pages/settings/settings.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRippleModule} from '@angular/material/core';
-import { HomeComponent } from './pages/home/home.component';
+import {HomeComponent} from './pages/home/home.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RecentComponent,
     PublishedComponent,
     FavoritesComponent,
     UserComponent,
@@ -61,8 +59,8 @@ import { HomeComponent } from './pages/home/home.component';
       {path: 'favorites', component: FavoritesComponent, canActivate: [AuthenticateGuard]},
       {path: 'user', component: UserComponent, canActivate: [AuthenticateGuard]},
       {path: 'profile', component: ProfileComponent},
-      {path: 'settings', component: SettingsComponent},
-      {path: 'resource', component: ResourceComponent, canActivate: [AuthenticateGuard]},
+      {path: 'settings', component: SettingsComponent, canActivate: [AuthenticateGuard]},
+      {path: 'resource', component: ResourceComponent},
       {path: 'login', component: LoginComponent},
       {path: 'sign-up', component: SignupComponent},
       {path: 'edit', component: EditComponent, canActivate: [AuthenticateGuard]},

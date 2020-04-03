@@ -37,13 +37,23 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async signUp() {
+  signUp() {
     if (this.signUpInfo.valid) {
-      await this.auth.put(
+      this.auth.put(
         '/api/user',
         this.signUpInfo.value
-      );
-      await this.router.navigate(['login']);
+      ).then(value => {
+        if (value) {
+          this.snackBar.open(
+            'sign up success', null,
+            {duration: 2000});
+          this.router.navigate(['login']);
+        } else {
+          this.signUpInfo.setErrors({
+            failed: true
+          });
+        }
+      });
     }
   }
 }

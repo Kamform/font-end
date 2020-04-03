@@ -1,26 +1,3 @@
-<h2>Upload Resource</h2>
-
-<form [formGroup]="definer" (ngSubmit)="create()">
-  <label>title: <input type="text" formControlName="title"></label>
-
-  <label>
-    summary:
-    <textarea formControlName="summary">
-
-    </textarea>
-  </label>
-
-  <label>
-    category:
-    <select formControlName="category">
-      <option *ngFor="let category of categories?.content" [value]="category.id">{{category.name}}</option>
-    </select>
-  </label>
-
-  <label>
-    files:
-  </label>
-
-  <button type="submit">upload</button>
-</form>
-
+<mat-toolbar>
+  Create Resource
+</mat-toolbar>

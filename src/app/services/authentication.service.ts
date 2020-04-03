@@ -12,8 +12,11 @@ export class AuthenticationService {
 
   public error;
   public isLogin: boolean;
+  public account: any;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+  ) {
     this.isLogin = this.isAuthenticated();
   }
 
@@ -37,11 +40,6 @@ export class AuthenticationService {
     };
   }
 
-  auth() {
-    this.useAuth = true;
-    return this;
-  }
-
   logout() {
     this.token = '';
     document.cookie = '';
@@ -51,20 +49,48 @@ export class AuthenticationService {
   async authenticate(loginInfo: {
     username: string, password: string
   }): Promise<boolean> {
-    return this.http.post(
+    return this.http.post<{
+      token: string,
+      info: any
+    }>(
       this.url + '/api/authenticate',
       {
         username: loginInfo.username,
         password: loginInfo.password
-      },
-      {
-        responseType: 'text'
       }
     ).toPromise().catch(reason => {
       this.error = reason;
-      return '';
+      return {
+        token: '',
+        info: null
+      };
     }).then(value => {
-      this.token = document.cookie = value;
+      console.log(value);
+      this.token = document.cookie = value.token;
+      this.account = value.info;
+      return this.isLogin = this.isAuthenticated();
+    });
+  }
+
+  async refreshToken(token: string) {
+    return this.http.post<{
+      token: string,
+      info: any
+    }>(
+      '/api/refresh-token',
+      {
+        string: token
+      }
+    ).toPromise().catch(reason => {
+      this.error = reason;
+      return {
+        token: '',
+        info: null
+      };
+    }).then(value => {
+      console.log(value);
+      this.token = document.cookie = value.token;
+      this.account = value.info;
       return this.isLogin = this.isAuthenticated();
     });
   }
@@ -77,7 +103,14 @@ export class AuthenticationService {
 
     return this.http.get<T>(
       this.url + path,
-      this.options(params)).toPromise();
+      this.options(params)).toPromise()
+      .catch(() => {
+        this.refreshToken(this.token);
+        return this.http.get<T>(
+          this.url + path,
+          this.options(params)
+        ).toPromise();
+      });
   }
 
   async post(path: string, body: any) {
@@ -85,7 +118,14 @@ export class AuthenticationService {
       this.url + path,
       body,
       this.options()
-    ).toPromise();
+    ).toPromise().catch(() => {
+      this.refreshToken(this.token);
+      return this.http.post(
+        this.url + path,
+        body,
+        this.options()
+      ).toPromise();
+    });
   }
 
   async put(path: string, body: any) {
@@ -93,7 +133,19 @@ export class AuthenticationService {
       this.url + path,
       body,
       this.options()
-    ).toPromise();
+    ).toPromise().catch(() => {
+      this.refreshToken(this.token);
+      return this.http.put(
+        this.url + path,
+        body,
+        this.options()
+      ).toPromise();
+    })
+      .then(() => {
+        return true;
+      }).catch(() => {
+        return false;
+      });
   }
 
   async patch(path: string, body: any) {
@@ -101,12 +153,24 @@ export class AuthenticationService {
       this.url + path,
       body,
       this.options()
-    ).toPromise();
+    ).toPromise().catch(() => {
+      this.refreshToken(this.token);
+      return this.http.patch(
+        this.url + path,
+        body,
+        this.options()
+      ).toPromise();
+    });
   }
 
   async delete(id: number) {
     return this.http.delete(
       `${this.url}/${id}`, this.options()
-    ).toPromise();
+    ).toPromise().catch(() => {
+      this.refreshToken(this.token);
+      return this.http.delete(
+        `${this.url}/${id}`, this.options()
+      ).toPromise();
+    });
   }
 }

@@ -20,11 +20,11 @@
 </mat-tab-group>
 
 <ng-container *ngIf="tabs.selectedIndex===0" #info_page>
-  username: {{info.username}}
+  username: {{user.username}}
   <br>
-  email: {{info.email}}
+  email: {{user.email}}
   <br>
-  phone {{info.phone}}
+  phone {{user.phone}}
 </ng-container>
 
 <ng-container *ngIf="tabs.selectedIndex===1" #published_page>
