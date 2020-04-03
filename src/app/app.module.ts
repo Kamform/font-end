@@ -30,6 +30,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRippleModule} from '@angular/material/core';
 import {HomeComponent} from './pages/home/home.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -48,36 +49,37 @@ import {HomeComponent} from './pages/home/home.component';
     SettingsComponent,
     HomeComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    MatSnackBarModule,
-    RouterModule.forRoot([
-      {path: '', component: HomeComponent},
-      {path: 'category', component: CategoryComponent},
-      {path: 'publish', component: PublishedComponent, canActivate: [AuthenticateGuard]},
-      {path: 'favorites', component: FavoritesComponent, canActivate: [AuthenticateGuard]},
-      {path: 'user', component: UserComponent, canActivate: [AuthenticateGuard]},
-      {path: 'profile', component: ProfileComponent},
-      {path: 'settings', component: SettingsComponent, canActivate: [AuthenticateGuard]},
-      {path: 'resource', component: ResourceComponent},
-      {path: 'login', component: LoginComponent},
-      {path: 'sign-up', component: SignupComponent},
-      {path: 'edit', component: EditComponent, canActivate: [AuthenticateGuard]},
-    ]),
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatSidenavModule,
-    MatListModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatCardModule,
-    MatTabsModule,
-    MatIconModule,
-    MatRippleModule,
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        MatSnackBarModule,
+        RouterModule.forRoot([
+            {path: '', component: HomeComponent},
+            {path: 'category', component: CategoryComponent},
+            {path: 'publish', component: PublishedComponent, canActivate: [AuthenticateGuard]},
+            {path: 'favorites', component: FavoritesComponent, canActivate: [AuthenticateGuard]},
+            {path: 'user', component: UserComponent, canActivate: [AuthenticateGuard]},
+            {path: 'profile', component: ProfileComponent},
+            {path: 'settings', component: SettingsComponent, canActivate: [AuthenticateGuard]},
+            {path: 'resource', component: ResourceComponent},
+            {path: 'login', component: LoginComponent},
+            {path: 'sign-up', component: SignupComponent},
+            {path: 'edit', component: EditComponent, canActivate: [AuthenticateGuard]},
+        ]),
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
+        MatListModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatCardModule,
+        MatTabsModule,
+        MatIconModule,
+        MatRippleModule,
+        MatSelectModule,
+    ],
   providers: [],
   bootstrap: [BootstrapComponent]
 })

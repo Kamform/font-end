@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +8,30 @@ export class AuthenticationService {
   private url = 'http://localhost:8080';
   private token = '';
   private useAuth = false;
+  private account: any;
 
   public error;
   public isLogin: boolean;
-  public account: any;
 
   constructor(
     private http: HttpClient,
   ) {
     this.isLogin = this.isAuthenticated();
+  }
+
+  async getAccount() {
+    if (this.account != null) {
+      return this.account;
+    }
+
+    return this.account = await this.takeToken().get<any>(
+      '/api/master'
+    );
+  }
+
+  takeToken() {
+    this.useAuth = true;
+    return this;
   }
 
   isAuthenticated() {

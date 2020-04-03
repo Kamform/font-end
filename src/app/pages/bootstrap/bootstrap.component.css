@@ -1,3 +1,10 @@
-mat-sidenav-container{
+mat-sidenav-container {
   height: 100%;
+}
+
+a[mat-fab] {
+  z-index: 99;
+  position: absolute;
+  left: 172px;
+  bottom: 56px;
 }

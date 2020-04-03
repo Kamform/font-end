@@ -2,7 +2,7 @@
   User Profile
 </mat-toolbar>
 
-<mat-tab-group #tabs>
+<mat-tab-group #tabs [(selectedIndex)]="index">
   <mat-tab label="Profile">
   </mat-tab>
 
@@ -19,16 +19,22 @@
   </mat-tab>
 </mat-tab-group>
 
-<ng-container *ngIf="tabs.selectedIndex===0" #info_page>
-  username: {{user.username}}
-  <br>
-  email: {{user.email}}
-  <br>
-  phone {{user.phone}}
+<ng-container *ngIf="index==0" #info_page>
+  <mat-list>
+    <mat-list-item>
+      username: {{user.username}}
+    </mat-list-item>
+    <mat-list-item>
+      email: {{user.email}}
+    </mat-list-item>
+    <mat-list-item>
+      phone {{user.phone}}
+    </mat-list-item>
+  </mat-list>
 </ng-container>
 
-<ng-container *ngIf="tabs.selectedIndex===1" #published_page>
-  <mat-card mat-ripple *ngFor="let res of published?.content" (click)="clickResource(res.id)">
+<ng-container *ngIf="index==1" #published_page>
+  <mat-card mat-ripple *ngFor="let res of published" (click)="clickResource(res.id)">
     <mat-card-title>
       {{res.title}}
     </mat-card-title>
@@ -42,8 +48,8 @@
   </mat-card>
 </ng-container>
 
-<ng-container *ngIf="tabs.selectedIndex===2" #favorites_page>
-  <mat-card *ngFor="let res of favorites?.content">
+<ng-container *ngIf="index==2" #favorites_page>
+  <mat-card *ngFor="let res of favorites">
     <mat-card-title>
       {{res.title}}
     </mat-card-title>
@@ -57,10 +63,10 @@
   </mat-card>
 </ng-container>
 
-<ng-container *ngIf="tabs.selectedIndex===3" #followed_page>
+<ng-container *ngIf="index==3" #followed_page>
   Followed
 </ng-container>
 
-<ng-container *ngIf="tabs.selectedIndex===4" #fans_page>
+<ng-container *ngIf="index==4" #fans_page>
   Fans
 </ng-container>

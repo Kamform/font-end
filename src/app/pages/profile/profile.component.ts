@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {ResourceService} from '../../services/resource.service';
 import {LoginServer} from '../../services/login-server.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthenticationService} from '../../services/authentication.service';
+import {MatTabGroup} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-profile',
@@ -12,9 +13,10 @@ import {AuthenticationService} from '../../services/authentication.service';
 })
 export class ProfileComponent implements OnInit {
 
+  index = 0;
+
   user = {
     username: '',
-    password: '',
     email: '',
     phone: ''
   };
@@ -25,10 +27,12 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private auth: AuthenticationService,
-    private userService: UserService,
-    private resourceService: ResourceService,
     private snackBar: MatSnackBar
   ) {
+    auth.getAccount().then(value => {
+      this.user = value;
+      console.log(this.user);
+    });
   }
 
   clickResource(id: number) {
