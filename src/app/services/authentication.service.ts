@@ -11,10 +11,10 @@ export class AuthenticationService {
   private useAuth = false;
 
   public error;
-  public isLogin = new Subject<boolean>();
+  public isLogin: boolean;
 
   constructor(private http: HttpClient) {
-    this.isLogin.next(false);
+    this.isLogin = this.isAuthenticated();
   }
 
   isAuthenticated() {
@@ -45,7 +45,7 @@ export class AuthenticationService {
   logout() {
     this.token = '';
     document.cookie = '';
-    this.isLogin.next(this.isAuthenticated());
+    this.isLogin = false;
   }
 
   async authenticate(loginInfo: {
@@ -65,8 +65,7 @@ export class AuthenticationService {
       return '';
     }).then(value => {
       this.token = document.cookie = value;
-      this.isLogin.next(this.isAuthenticated());
-      return this.isAuthenticated();
+      return this.isLogin = this.isAuthenticated();
     });
   }
 

@@ -12,12 +12,12 @@
         <span mat-line>Resources</span>
       </a>
 
-      <a *ngIf="isLogin" mat-list-item routerLink="favorites">
+      <a *ngIf="auth.isLogin" mat-list-item routerLink="favorites">
         <mat-icon mat-list-icon>favorite</mat-icon>
         <span mat-line>Favorites</span>
       </a>
 
-      <a *ngIf="isLogin" mat-list-item routerLink="publish">
+      <a *ngIf="auth.isLogin" mat-list-item routerLink="publish">
         <mat-icon mat-list-icon>folder</mat-icon>
         <span mat-line>Published</span>
       </a>
@@ -26,7 +26,7 @@
     <mat-divider></mat-divider>
 
     <mat-nav-list>
-      <ng-container *ngIf="isLogin else login">
+      <ng-container *ngIf="auth.isLogin else login">
         <a mat-list-item routerLink="edit">
           <mat-icon mat-list-icon>publish</mat-icon>
           <span mat-line>Publish</span>

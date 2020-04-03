@@ -9,16 +9,9 @@ import {Router} from '@angular/router';
 })
 export class BootstrapComponent implements OnInit {
 
-  public isLogin: boolean;
-
   constructor(
-    private auth: AuthenticationService,
-    private router: Router) {
-
-    auth.isLogin.subscribe(value => {
-      console.log(value);
-      this.isLogin = value;
-    });
+    private auth: AuthenticationService
+  ) {
   }
 
   ngOnInit(): void {
